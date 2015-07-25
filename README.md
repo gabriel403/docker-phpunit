@@ -22,7 +22,37 @@ Ripped off from [phpunit/phpunit](https://github.com/JulienBreux/phpunit-docker)
 2. Create a phpunit.xml defining your tests suites.
 
     ``` xml
-...
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <phpunit backupGlobals="false"
+             backupStaticAttributes="false"
+             colors="true"
+             convertErrorsToExceptions="true"
+             convertNoticesToExceptions="true"
+             convertWarningsToExceptions="true"
+             processIsolation="false"
+             stopOnFailure="false"
+             syntaxCheck="false"
+             bootstrap="tests/phpunit/bootstrap.php"
+    >
+        <testsuites>
+            <testsuite name="My Test Suite">
+                <directory>./tests/phpunit/</directory>
+            </testsuite>
+        </testsuites>
+
+        <logging>
+            <log type="coverage-html" target="build/coverage"/>
+            <log type="coverage-clover" target="build/logs/clover.xml"/>
+        </logging>
+
+        <filter>
+            <whitelist>
+                <directory>./src/</directory>
+            </whitelist>
+        </filter>
+    </phpunit>
+
     ```
 
 3. Run PHPUnit through the PHPUnit container:
